@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-export function handler(req, res) {
+export default function handler(req, res) {
     if (req.method === "POST") {
         const email = req.body.email;
         const feedbackText = req.body.text;
@@ -14,10 +14,11 @@ export function handler(req, res) {
         const fileData = fs.readFileSync(filePath);
         const data = JSON.parse(fileData);
         data.push(newFeedback);
-        fs.writefileSync(filePath, JSON.stringify(data))
-        res.status(201).json({message:"Success !", feedback: newFeedback});
+        fs.writeFileSync(filePath, JSON.stringify(data))
+        res.status(201).json({ message: "Success !", feedback: newFeedback });
+    } else {
+        res.status(200).json({
+            message: "This works!"
+        })
     }
-    res.status(200).json({
-        message: "This works!"
-    })
 }

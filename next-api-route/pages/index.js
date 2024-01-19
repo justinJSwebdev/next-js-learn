@@ -2,10 +2,21 @@ import { useRef } from "react"
 export default function Home() {
   const emailInputRef = useRef();
   const feedbackInputRef = useRef();
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value
     const enteredFeedback = feedbackInputRef.current.value
+    const data = await fetch('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: enteredEmail,
+        text: enteredFeedback
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    console.log(data.json())
   }
   return (
     <>
