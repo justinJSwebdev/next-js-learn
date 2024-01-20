@@ -18,6 +18,11 @@ export default function Home() {
     })
     console.log(data.json())
   }
+
+  async function loadFeedbackHandler() {
+    const data = await fetch('/api/feedback')
+    console.log(data)
+  }
   return (
     <>
       <div>
@@ -33,6 +38,8 @@ export default function Home() {
           </div>
           <button>Send Feedback</button>
         </form>
+        <hr />
+        <button onClick={loadFeedbackHandler}>Load Feedback</button>
       </div>
     </>
   );
